@@ -155,7 +155,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       Chef::Log.info "#{name} init script updated but mongodb.reload_action is #{node['mongodb']['reload_action']}. No action taken."
     end
   end
-  
+
   # service
   service name do
     supports :status => true, :restart => true
