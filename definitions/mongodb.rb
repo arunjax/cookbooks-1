@@ -102,7 +102,12 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       "shardsrv" => false,  #type == "shard", dito.
       "enable_rest" => params[:enable_rest]
     )
-    notifies :restart, "service[#{name}]"
+    case node['mongodb']['reload_action']
+    when 'restart'
+      notifies :restart, resources(:service => name)
+    else
+      Chef::Log.info "#{name} defaults file updated but mongodb.reload_action is #{node['mongodb']['reload_action']}. No action taken."
+    end
   end
   
   # log dir [make sure it exists]
@@ -133,7 +138,12 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
     owner "root"
     mode "0755"
     variables :provides => name
-    notifies :restart, "service[#{name}]"
+    case node['mongodb']['reload_action']
+    when 'restart'
+      notifies :restart, resources(:service => name)
+    else
+      Chef::Log.info "#{name} init script updated but mongodb.reload_action is #{node['mongodb']['reload_action']}. No action taken."
+    end
   end
   
   # service

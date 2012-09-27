@@ -36,6 +36,7 @@ default[:mongodb][:root_group] = "root"
 default[:mongodb][:init_dir] = "/etc/init.d"
 
 default[:mongodb][:init_script_template] = "mongodb.init.erb"
+default[:mongodb][:reload_action] = "restart" # or "none"
 
 case node['platform']
 when "freebsd"
