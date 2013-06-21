@@ -21,7 +21,7 @@
 
 include_recipe "mongodb"
 
-service "mongodb" do
+service node[:mongodb][:default_service] do
   action [:disable, :stop]
 end
 

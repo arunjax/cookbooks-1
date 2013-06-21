@@ -53,6 +53,8 @@ default[:mongodb][:init_dir] = "/etc/init.d"
 default[:mongodb][:init_script_template] = "mongodb.init.erb"
 default[:mongodb][:reload_action] = "restart" # or "none"
 
+default[:mongodb][:default_service] = "mongod"
+
 case node['platform_family']
 when "freebsd"
   default[:mongodb][:defaults_dir] = "/etc/rc.conf.d"

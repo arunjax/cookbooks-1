@@ -21,9 +21,9 @@
 
 include_recipe "mongodb"
 
-service "mongodb" do
+service node[:mongodb][:default_service] do
   supports :status => true, :restart => true
-  action [:disable, :stop]
+  action [:disable]
 end
 
 # we are not starting the configserver service with the --configsvr
