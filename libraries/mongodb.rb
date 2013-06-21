@@ -54,7 +54,10 @@ class Chef::ResourceDefinitionList::MongoDB
     rs_members = []
     members.each_index do |n|
       port = members[n]['mongodb']['port']
-      rs_members << {"_id" => n, "host" => "#{members[n]['fqdn']}:#{port}"}
+      port = members[n]['mongodb']['arbiter_port'] if members[n]['mongodb']['arbiter']
+      config = {"_id" => n, "host" => "#{members[n]['fqdn']}:#{port}"}
+      config["arbiterOnly"] = true  if members[n]['mongodb']['arbiter']
+      rs_members << config
     end
 
     
