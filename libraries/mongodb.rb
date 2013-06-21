@@ -77,6 +77,13 @@ class Chef::ResourceDefinitionList::MongoDB
         "_id" => name,
         "members" => rs_members
     }
+
+    Chef::Log.info("Command to configure: #{cmd}")
+
+    if (node['mongodb']['dryrun'])
+      Chef::Log.info("Dry run, not sending a command.")
+      return
+    end
     
     begin
       result = admin.command(cmd, :check_response => false)
@@ -129,7 +136,7 @@ class Chef::ResourceDefinitionList::MongoDB
           Chef::Log.info("New config successfully applied: #{config.inspect}")
         end
         if !result.nil?
-          Chef::Log.error("configuring replicaset returned: #{result.inspect}")
+          Chef::Application.fatal!("configuring replicaset returned: #{result.inspect}", 1)
         end
       else
         # remove removed members from the replicaset and add the new ones
@@ -166,11 +173,11 @@ class Chef::ResourceDefinitionList::MongoDB
           Chef::Log.info("New config successfully applied: #{config.inspect}")
         end
         if !result.nil?
-          Chef::Log.error("configuring replicaset returned: #{result.inspect}")
+          Chef::Application.fatal!("configuring replicaset returned: #{result.inspect}", 1)
         end
       end
     elsif !result.fetch("errmsg", nil).nil?
-      Chef::Log.error("Failed to configure replicaset, reason: #{result.inspect}")
+      Chef::Application.fatal!("Failed to configure replicaset, reason: #{result.inspect}", 1)
     end
   end
   
