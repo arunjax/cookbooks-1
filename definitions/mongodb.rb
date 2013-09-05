@@ -101,7 +101,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       "logpath" => logfile,
       "dbpath" => dbpath,
       "replicaset_name" => replicaset_name,
-      "configsrv" => false, #type == "configserver", this might change the port
+      "configsrv" => type == "configserver", # this is now useful in 2.4, as it enables the local oplog
       "shardsrv" => false,  #type == "shard", dito.
       "nojournal" => nojournal,
       "enable_rest" => params[:enable_rest] && type != "mongos",
