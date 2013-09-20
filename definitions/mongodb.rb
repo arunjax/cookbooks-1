@@ -105,7 +105,8 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       "shardsrv" => false,  #type == "shard", dito.
       "nojournal" => nojournal,
       "enable_rest" => params[:enable_rest] && type != "mongos",
-      "smallfiles" => params[:smallfiles]
+      "smallfiles" => params[:smallfiles],
+      "directoryperdb" => params[:directoryperdb] && type == "shard"
     )
     case node['mongodb']['reload_action']
     when 'restart'

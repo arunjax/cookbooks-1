@@ -21,6 +21,8 @@ DAEMON_OPTS="$DAEMON_OPTS --bind_ip <%= @bind_ip %>"
 
 <%= @nojournal ? "DAEMON_OPTS=\"$DAEMON_OPTS --nojournal\"" : "" %>
 
+<%= @directoryperdb ? "DAEMON_OPTS=\"$DAEMON_OPTS --directoryperdb\"" : "" %>
+
 <% if @replicaset_name %>
 DAEMON_OPTS="$DAEMON_OPTS --replSet <%= @replicaset_name %>"
 <% end %>
