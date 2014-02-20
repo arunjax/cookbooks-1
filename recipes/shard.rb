@@ -44,4 +44,5 @@ mongodb_instance "shard" do
   enable_rest    node['mongodb']['enable_rest']
   smallfiles     node['mongodb']['smallfiles']
   directoryperdb node['mongodb']['directoryperdb']
+  noprealloc     node['mongodb']['noprealloc']
 end

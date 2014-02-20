@@ -29,5 +29,6 @@ if !node.recipe?("mongodb::shard")
     replicaset   node
     enable_rest  node['mongodb']['enable_rest']
     smallfiles   node['mongodb']['smallfiles']
+    noprealloc   node['mongodb']['noprealloc']
   end
 end

@@ -35,6 +35,7 @@ default[:mongodb][:auto_configure][:sharding] = true
 
 default[:mongodb][:enable_rest] = false
 default[:mongodb][:smallfiles] = false
+default[:mongodb][:noprealloc] = false
 
 default[:mongodb][:user] = "mongodb"
 default[:mongodb][:group] = "mongodb"
