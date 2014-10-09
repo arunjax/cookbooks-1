@@ -107,7 +107,8 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       "enable_rest" => params[:enable_rest] && type != "mongos",
       "smallfiles" => params[:smallfiles],
       "noprealloc" => params[:noprealloc],
-      "directoryperdb" => params[:directoryperdb] && type == "shard"
+      "directoryperdb" => params[:directoryperdb] && type == "shard",
+      "slowms" => type == "shard" ? params[:slowms] : nil
     )
     case node['mongodb']['reload_action']
     when 'restart'

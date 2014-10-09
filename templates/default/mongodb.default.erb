@@ -39,6 +39,8 @@ DAEMON_OPTS="$DAEMON_OPTS --smallfiles"
 DAEMON_OPTS="$DAEMON_OPTS --noprealloc"
 <% end %>
 
+<%= @slowms ? "DAEMON_OPTS=\"$DAEMON_OPTS --slowms #{@slowms}\"" : "" %>
+
 <% if %w( rhel fedora ).include? node.platform_family -%>
 DAEMON_OPTS="$DAEMON_OPTS --fork"
 DBPATH="<%= @dbpath %>"

@@ -45,4 +45,5 @@ mongodb_instance "shard" do
   smallfiles     node['mongodb']['smallfiles']
   directoryperdb node['mongodb']['directoryperdb']
   noprealloc     node['mongodb']['noprealloc']
+  slowms         node['mongodb']['slowms']
 end
