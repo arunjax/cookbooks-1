@@ -108,7 +108,8 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       "smallfiles" => params[:smallfiles],
       "noprealloc" => params[:noprealloc],
       "directoryperdb" => params[:directoryperdb] && type == "shard",
-      "slowms" => type == "shard" ? params[:slowms] : nil
+      "slowms" => type == "shard" ? params[:slowms] : nil,
+      "oplog_size" => type == "shard" ? params[:oplog_size] : nil
     )
     case node['mongodb']['reload_action']
     when 'restart'
@@ -217,4 +218,3 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
     end
   end
 end
-

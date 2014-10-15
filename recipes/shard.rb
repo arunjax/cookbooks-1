@@ -46,4 +46,5 @@ mongodb_instance "shard" do
   directoryperdb node['mongodb']['directoryperdb']
   noprealloc     node['mongodb']['noprealloc']
   slowms         node['mongodb']['slowms']
+  oplog_size     node['mongodb']['oplog_size']
 end
