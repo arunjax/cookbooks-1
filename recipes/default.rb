@@ -21,16 +21,20 @@
 
 # mongo-10gen-server package depends on mongo-10gen, but doesn't get upgraded.
 # This forces an explict upgrade.
-if (node[:mongodb][:package_name] == "mongo-10gen-server")
-  package "mongo-10gen" do
+if !node[:mongodb][:override_install]
+  if (node[:mongodb][:package_name] == "mongo-10gen-server")
+    package "mongo-10gen" do
+      action :install
+      version node[:mongodb][:package_version]
+      source node[:mongodb][:localrpm_server]
+    end
+  end
+
+  package node[:mongodb][:package_name] do
     action :install
     version node[:mongodb][:package_version]
+    source node[:mongodb][:localrpm_client]
   end
-end
-
-package node[:mongodb][:package_name] do
-  action :install
-  version node[:mongodb][:package_version]
 end
 
 needs_mongo_gem = (node.recipes.include?("mongodb::replicaset") or node.recipes.include?("mongodb::mongos"))
