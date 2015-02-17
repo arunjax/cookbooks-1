@@ -47,3 +47,7 @@ DAEMON_OPTS="$DAEMON_OPTS --noprealloc"
 DAEMON_OPTS="$DAEMON_OPTS --fork"
 DBPATH="<%= @dbpath %>"
 <% end -%>
+
+<% if node.mongodb[:extra_shard_options] != nil %>
+DAEMON_OPTS="$DAEMON_OPTS <%= node.mongodb.extra_shard_options %>"
+<% end %>
