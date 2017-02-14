@@ -1,12 +1,14 @@
 # DESCRIPTION:
 
-Installs and configures MongoDB, supporting:
+Installs and configures MongoDB 3.2+ with CSRS config servers, supporting:
 
 * Single MongoDB
 * Replication
 * Sharding
 * Replication and Sharding
 * 10gen repository package installation
+
+Does not support old SCCC config servers in this release.
 
 # REQUIREMENTS:
 

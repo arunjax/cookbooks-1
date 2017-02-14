@@ -42,6 +42,12 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
   configfile = node['mongodb']['configfile']
   configserver_nodes = params[:configserver]
   
+  if node['mongodb']['configsrv_replicaset_name']
+    configsrv_replicaset_name = node['mongodb']['configsrv_replicaset_name']
+  else
+    configsrv_replicaset_name = "csrs_" + node['mongodb']['cluster_name']
+  end
+  
   replicaset = params[:replicaset]
 
   nojournal = node['mongodb']['nojournal']
@@ -53,6 +59,8 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       # for replicated shards we autogenerate the replicaset name for each shard
       replicaset_name = "rs_#{replicaset['mongodb']['shard_name']}"
     end
+  elsif type == "configserver"
+    replicaset_name = configsrv_replicaset_name
   else
     # if there is a predefined replicaset name we use it,
     # otherwise we try to generate one using 'rs_$SHARD_NAME'
@@ -102,6 +110,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       "dbpath" => dbpath,
       "replicaset_name" => replicaset_name,
       "configsrv" => type == "configserver", # this is now useful in 2.4, as it enables the local oplog
+      "configsrv_replicaset_name" => configsrv_replicaset_name,
       "shardsrv" => false,  #type == "shard", dito.
       "nojournal" => nojournal,
       "enable_rest" => params[:enable_rest] && type != "mongos",

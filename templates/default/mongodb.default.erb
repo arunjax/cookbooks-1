@@ -14,7 +14,7 @@ DAEMON_OPTS="$DAEMON_OPTS --bind_ip <%= @bind_ip %>"
 <%= @logpath ? "DAEMON_OPTS=\"$DAEMON_OPTS --logpath #{@logpath}\"" : "" %>
 
 <%= @config ? "DAEMON_OPTS=\"$DAEMON_OPTS --config #{@config}\"" : "" %>
-<%= @configdb ? "DAEMON_OPTS=\"$DAEMON_OPTS --configdb #{@configdb}\"" : "" %>
+<%= @configdb ? "DAEMON_OPTS=\"$DAEMON_OPTS --configdb #{@configsrv_replicaset_name}/#{@configdb}\"" : "" %>
 
 <%= @configsrv ? "DAEMON_OPTS=\"$DAEMON_OPTS --configsvr\"" : "" %>
 <%= @shardsrv ? "DAEMON_OPTS=\"$DAEMON_OPTS --shardsvr\"" : "" %>
