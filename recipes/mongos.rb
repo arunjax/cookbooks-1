@@ -32,8 +32,8 @@ configsrv = search(
    chef_environment:#{node.chef_environment}"
 )
 
-if configsrv.length != 1 and configsrv.length != 3
-  Chef::Log.error("Found #{configsrv.length} configserver, need either one or three of them")
+if configsrv.length == 0
+  Chef::Log.error("Found no configservers, need at least one")
   raise "Wrong number of configserver nodes"
 end
 
