@@ -51,3 +51,5 @@ DBPATH="<%= @dbpath %>"
 <% if node.mongodb[:extra_shard_options] != nil %>
 DAEMON_OPTS="$DAEMON_OPTS <%= node.mongodb.extra_shard_options %>"
 <% end %>
+
+DAEMONUSER=<%= node.mongodb.user %>
