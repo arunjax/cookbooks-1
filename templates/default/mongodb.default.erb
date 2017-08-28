@@ -48,6 +48,8 @@ DAEMON_OPTS="$DAEMON_OPTS --fork"
 DBPATH="<%= @dbpath %>"
 <% end -%>
 
+DAEMON_OPTS="$DAEMON_OPTS --pidfilepath <%= @pidfile %>"
+
 <% if node.mongodb[:extra_shard_options] != nil %>
 DAEMON_OPTS="$DAEMON_OPTS <%= node.mongodb.extra_shard_options %>"
 <% end %>

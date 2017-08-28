@@ -6,7 +6,7 @@
 # description: Mongo is a scalable, document-oriented database.
 # processname: <%= @provides %>
 # config: /etc/mongod.conf
-# pidfile: /var/run/mongo/mongo.pid
+# pidfile: <%= @pidfile %>
 
 . /etc/rc.d/init.d/functions
 
@@ -20,11 +20,7 @@ SUBSYS_LOCK_FILE=/var/lock/subsys/<%= @provides %>
 start()
 {
   echo -n $"Starting <%= @provides %>: "
-<% if @emits_pid %>
-  daemon --user "$MONGO_USER" --pidfile "$DBPATH"/mongod.lock $DAEMON $DAEMON_OPTS
-<% else %>
-  daemon --user "$MONGO_USER" $DAEMON $DAEMON_OPTS
-<% end %>
+  daemon --user "$MONGO_USER" --pidfile <%= @pidfile %> $DAEMON $DAEMON_OPTS
   RETVAL=$?
   echo
   [ $RETVAL -eq 0 ] && touch $SUBSYS_LOCK_FILE
