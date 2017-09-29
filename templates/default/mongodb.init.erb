@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 ### BEGIN INIT INFO
 # Provides:          <%= @provides %>
@@ -102,7 +102,7 @@ running() {
     pid=`cat $PIDFILE`
     running_pid $pid $DAEMON || return 1
     for i in `seq 1 20`; do
-      nc -z localhost <%= node['mongodb']['port'] %> && return 0
+      nc -z localhost <%= @port %> && return 0
       echo -n "."
       sleep 15
     done
@@ -236,4 +236,3 @@ case "$1" in
 esac
 
 exit 0
-

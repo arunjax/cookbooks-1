@@ -55,3 +55,5 @@ DAEMON_OPTS="$DAEMON_OPTS <%= node.mongodb.extra_shard_options %>"
 <% end %>
 
 DAEMONUSER=<%= node.mongodb.user %>
+
+PORT="<%= @port %>"
