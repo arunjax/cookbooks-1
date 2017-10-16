@@ -91,7 +91,18 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
     configserver = configserver_nodes.collect{|n| "#{n['dns_alias'] ? n['dns_alias'] : n['fqdn']}:#{n['mongodb']['port']}" }.sort.join(",")
   end
 
-  pidfile="/var/run/mongo/mongo.pid"
+  pidfile = "/var/run/mongo/#{name}.pid"
+
+  # TODO: This migration has been run on all our machines, but it's messy and we should probably delete it soon.  Even worse when I do get it working, there's no good way to create a pid file from the existing running process...
+  remote_file "#{pidfile}" do
+    source "file:///var/run/mongo/mongo.pid"
+    owner node[:mongodb][:user]
+    group node[:mongodb][:group]
+    action (File.exist?("/var/run/mongo/mongo.pid") ? :create_if_missing : :nothing)
+  end
+  remote_file "/var/run/mongo/mongo.pid" do
+    action (File.exist?("/var/run/mongo/mongo.pid") ? :delete : :nothing)
+  end
 
   # default file
   template "#{node['mongodb']['defaults_dir']}/#{name}" do
