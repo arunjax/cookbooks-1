@@ -162,23 +162,25 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
     end
   end
 
-  # init script
-  template "#{node['mongodb']['init_dir']}/#{name}" do
-    action :create
-    cookbook node['mongodb']['template_cookbook']
-    source node[:mongodb][:init_script_template]
-    group node['mongodb']['root_group']
-    owner "root"
-    mode "0755"
-    variables(
-      "provides" => name,
-      "pidfile" => pidfile
-    )
-    case node['mongodb']['reload_action']
-    when 'restart'
-      notifies :restart, resources(:service => name)
-    else
-      Chef::Log.info "#{name} init script updated but mongodb.reload_action is #{node['mongodb']['reload_action']}. No action taken."
+  if node['mongodb']['skip_init_scripts'] != true
+    # init script
+    template "#{node['mongodb']['init_dir']}/#{name}" do
+      action :create
+      cookbook node['mongodb']['template_cookbook']
+      source node[:mongodb][:init_script_template]
+      group node['mongodb']['root_group']
+      owner "root"
+      mode "0755"
+      variables(
+        "provides" => name,
+        "pidfile" => pidfile
+      )
+      case node['mongodb']['reload_action']
+      when 'restart'
+        notifies :restart, resources(:service => name)
+      else
+        Chef::Log.info "#{name} init script updated but mongodb.reload_action is #{node['mongodb']['reload_action']}. No action taken."
+      end
     end
   end
 
