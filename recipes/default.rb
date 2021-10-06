@@ -49,6 +49,7 @@ if needs_mongo_gem
     Gem.clear_paths
   else
     chef_gem 'mongo' do
+      version node[:mongodb][:mongo_gem_version]
       action :install
     end
   end
