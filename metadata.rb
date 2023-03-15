@@ -3,7 +3,7 @@ maintainer        "Evergage"
 maintainer_email  "oleg+chef-mongo@evergage.com"
 license           "Apache 2.0"
 description       "Installs and configures mongodb >=3.2"
-version           "0.12.16"
+version           "0.12.17"
 
 recipe "mongodb", "Installs and configures a single node mongodb instance"
 recipe "mongodb::10gen_repo", "Adds the 10gen repo to get the latest packages"
