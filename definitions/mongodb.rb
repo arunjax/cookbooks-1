@@ -188,6 +188,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
   service name do
     supports :status => true, :restart => true
     action service_action
+    timeout 5400
     service_notifies.each do |service_notify|
       notifies :run, service_notify
     end
