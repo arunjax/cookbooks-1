@@ -233,7 +233,7 @@ define :mongodb_instance, :mongodb_type => "mongod" , :action => [:enable, :star
       :node,
       "mongodb_cluster_name:#{node['mongodb']['cluster_name']} AND \
        recipes:mongodb\\:\\:shard AND \
-       chef_environment:#{node.chef_environment}"
+       chef_environment:#{node['chef_environment']}"
     )
 
     ruby_block "config_sharding" do

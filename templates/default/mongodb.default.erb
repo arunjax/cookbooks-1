@@ -43,17 +43,17 @@ DAEMON_OPTS="$DAEMON_OPTS --noprealloc"
 
 <%= @oplog_size ? "DAEMON_OPTS=\"$DAEMON_OPTS --oplogSize #{@oplog_size}\"" : "" %>
 
-<% if %w( rhel fedora ).include? node.platform_family -%>
+<% if %w( rhel fedora ).include? node['platform_family'] -%>
 DAEMON_OPTS="$DAEMON_OPTS --fork"
 DBPATH="<%= @dbpath %>"
 <% end -%>
 
 DAEMON_OPTS="$DAEMON_OPTS --pidfilepath <%= @pidfile %>"
 
-<% if node.mongodb[:extra_shard_options] != nil %>
-DAEMON_OPTS="$DAEMON_OPTS <%= node.mongodb.extra_shard_options %>"
+<% if node['mongodb'][['extra_shard_options'] != nil %>
+DAEMON_OPTS="$DAEMON_OPTS <%= node['mongodb']['extra_shard_options'] %>"
 <% end %>
 
-DAEMONUSER=<%= node.mongodb.user %>
+DAEMONUSER=<%= node['mongodb']['user'] %>
 
 PORT="<%= @port %>"

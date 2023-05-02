@@ -29,7 +29,7 @@ configsrv = search(
   :node,
   "mongodb_cluster_name:#{node['mongodb']['cluster_name']} AND \
    recipes:mongodb\\:\\:configserver AND \
-   chef_environment:#{node.chef_environment}"
+   chef_environment:#{node['chef_environment']}"
 )
 
 if configsrv.length == 0
